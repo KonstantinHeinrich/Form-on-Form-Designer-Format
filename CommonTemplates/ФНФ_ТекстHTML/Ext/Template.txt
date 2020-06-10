@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html>
+	<html>
+	<head>
+	    <meta charset="utf-8" />
+	    <script src="АдресПубликации/scripts/webclient1ce.js"></script>
+	</head>
+	<body onload="init();">
+	    <div id="webClientContainer"></div>
+	    <button id="callbackButton" style="width:1px;height:1px">...</button>
+	    <script>
+	        var webClient = null;
+	        var onWebClientMessage = function (message, origin) {
+	            if (origin === 'АдресСервера') {
+	                    callbackButton = document.querySelector('#callbackButton');
+	        			callbackButton.message = message;
+	       			 	callbackButton.click();
+	                }
+	            };
+	        var messageToWebClient = function (message) {
+	            webClient.postMessage(message);
+	        };
+	        var init = function () {
+	            webClient = new WebClient1CE('webClientContainer',
+	            {
+	                webClientURL: 'АдресПубликации?MainWindowsMode=EmbeddedWorkplace&C=fonf:ДопПараметры',
+	                width: '99%',
+	                height: '99%',
+	                events:
+	                {
+	                    onMessage: onWebClientMessage
+	                }
+	            });
+	        };
+	    </script>
+	</body>
+	</html>
